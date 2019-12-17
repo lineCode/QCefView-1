@@ -1,5 +1,6 @@
 This repository was originally cloned from [tishion/QCefView](https://github.com/tishion/QCefView). Since tishion/QCefView don't support OSR (offscreen rendering), so I create a repository with the same name to implement these features.
 
+----
 
 Build instruction:
 
