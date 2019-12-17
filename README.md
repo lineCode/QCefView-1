@@ -1,7 +1,4 @@
-Quick Start with Qt+Cef https://tishion.github.io/QCefView 
-======
-
-This is the fresh new reforming version of QCefView, if you need to use the legacy one please checkout the ***legacy-archive*** branch.
+This repository was originally cloned from [tishion/QCefView](https://github.com/tishion/QCefView). Since tishion/QCefView don't support OSR (offscreen rendering), so I create a repository with the same name to implement these features.
 
 
 Build instruction:
