@@ -1,6 +1,13 @@
-This repository was originally cloned from [tishion/QCefView](https://github.com/tishion/QCefView). Since tishion/QCefView don't support OSR (offscreen rendering), so I create a repository with the same name to implement these features.
+This repository was originally cloned from [tishion/QCefView](https://github.com/tishion/QCefView). 
 
-----
+Since [tishion/QCefView](https://github.com/tishion/QCefView) don't support OSR (offscreen rendering), so I create a repository with the same name to implement these features.
+
+---
+
+**Known Issues:**
+- CefRenderHandler::GetViewRect will be called frequently when resize browser window, and browser content can't resize correctly. 
+
+---
 
 Build instruction:
 
@@ -27,6 +34,3 @@ Build instruction:
     REM generate and build the project
     cmake .. && cmake --build .
     ```
-
-> Note:
-When I start the reforming I use Qt 5.12.4 and CEF cef_binary_76.1.13+gf19c584+chromium-76.0.3809.132_windows64. You need to make sure the version you are choosing is compatible with the code in this repo.
