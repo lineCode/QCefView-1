@@ -107,12 +107,6 @@ bool QCefView::nativeEvent(const QByteArray &eventType, void *message, long *res
     return false;
 }
 
-void QCefView::resizeEvent(QResizeEvent *event) {
-    QWidget::resizeEvent(event);
-    if (pImpl_)
-        pImpl_->resizeEvent(event);
-}
-
 void QCefView::paintEvent(QPaintEvent *event) {
     if(pImpl_)
         pImpl_->paintEvent(event);

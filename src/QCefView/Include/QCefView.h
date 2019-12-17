@@ -55,7 +55,6 @@ class QCEFVIEW_EXPORT QCefView :
     bool responseQCefQuery(const QCefQuery &query);
   protected:
     bool nativeEvent(const QByteArray& eventType, void* message, long* result) override;
-    void resizeEvent(QResizeEvent *event) override;
   signals:
     /// <summary>
     ///

@@ -297,7 +297,7 @@ private:
     CefRefPtr<CefMessageRouterBrowserSide> pMessageRouter_;
     CefRefPtr<CefQueryHandler> pCefqueryHandler_;
 
-    QRect cefViewRect_;
+    std::atomic<QRect> cefViewRect_;
 
     std::mutex imageMtx_;
     int imageWidth_;

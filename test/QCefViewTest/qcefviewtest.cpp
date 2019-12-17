@@ -72,10 +72,7 @@ QCefViewTest::QCefViewTest(QWidget *parent)
     }, Qt::QueuedConnection);
 
 
-
-
-    ui.widgetCef->navigateToUrl("C:\\Users\\JEFFERY\\Desktop\\QCefViewTestPage.html");
-
+    ui.widgetCef->navigateToUrl(QCoreApplication::applicationDirPath() + "/QCefViewTestPage.html");
 }
 
 QCefViewTest::~QCefViewTest() {

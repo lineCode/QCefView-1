@@ -15,7 +15,7 @@ TransparentCefWnd::TransparentCefWnd(QWidget *parent)
     setWindowFlags(Qt::FramelessWindowHint);
     setMouseTracking(true);
 
-    ui.widgetCef->navigateToUrl("C:\\Users\\JEFFERY\\Desktop\\tree.html");
+    ui.widgetCef->navigateToUrl(QCoreApplication::applicationDirPath() + "/tree.html");
 }
 
 TransparentCefWnd::~TransparentCefWnd() {

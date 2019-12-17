@@ -52,8 +52,9 @@ UIEventHandlerWin::~UIEventHandlerWin() {
 
 void UIEventHandlerWin::OnSize(UINT message, WPARAM wparam, LPARAM lparam) {
     CefRefPtr<CefBrowserHost> host = GetBrowserHost();
-    if (host)
+    if (host) {
         host->WasResized();
+    }
 }
 
 bool UIEventHandlerWin::IsKeyDown(WPARAM wparam) {
@@ -332,7 +333,6 @@ void UIEventHandlerWin::OnMouseEvent(UINT message, WPARAM wParam, LPARAM lParam)
                     mouse_event.modifiers = GetCefMouseModifiers(wParam);
                     host->SendMouseClickEvent(mouse_event, btnType, false,
                                               last_click_count_);
-                    qInfo() << "SendMouseClickEvent";
                 }
             }
         }

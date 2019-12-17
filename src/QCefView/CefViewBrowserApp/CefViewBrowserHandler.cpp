@@ -384,10 +384,11 @@ void CefViewBrowserHandler::GetViewRect(CefRefPtr<CefBrowser> browser, CefRect &
     if (!pCefView)
         return;
 
+    QRect viewRect = cefViewRect_.load();
     rect.x = 0;
     rect.y = 0;
-    rect.width = cefViewRect_.width();
-    rect.height = cefViewRect_.height();
+    rect.width = viewRect.width();
+    rect.height = viewRect.height();
 
     qInfo() << "GetViewRect:" << rect.width << ", " << rect.height;
 }
@@ -420,9 +421,6 @@ void CefViewBrowserHandler::OnPaint(CefRefPtr<CefBrowser> browser,
                                     const CefRenderHandler::RectList &dirtyRects,
                                     const void *buffer, int width, int height) {
     if (type == CefRenderHandler::PaintElementType::PET_VIEW) {
-        //DCHECK(cefViewRect_.width() * pCefViewImpl_->deviceScaleFactor() == width);
-        //DCHECK(cefViewRect_.height() * pCefViewImpl_->deviceScaleFactor() == height);
-
         qInfo() << "OnPaint:" << width << ", " << height;
 
         {
@@ -591,7 +589,7 @@ void CefViewBrowserHandler::widgetPaintEvent(QPaintEvent *event) {
 }
 
 void CefViewBrowserHandler::setViewRect(QRect rect) {
-    cefViewRect_ = rect;
+    cefViewRect_.store(rect);
 }
 
 QCefView *CefViewBrowserHandler::GetCefView() {

@@ -211,7 +211,15 @@ bool QCefViewImplement::nativeEvent(const QByteArray &eventType, void *message, 
                     pCefUIEventWin_->OnMouseEvent(pMsg->message, pMsg->wParam, pMsg->lParam);
                 }
             } else if (pMsg->message == WM_SIZE) {
+                RECT rc;
+                GetClientRect(hwnd_, &rc);
+                QRect rc2 = pCefView_->rect();
 
+                qInfo() << "GetClientRect: " << rc.right - rc.left << ", " << rc.bottom - rc.top << ", rect: " << rc2.width() << ", " << rc2.height();
+
+                pQCefViewHandler_->setViewRect(rc2);
+                
+                pCefUIEventWin_->OnSize(pMsg->message, pMsg->wParam, pMsg->lParam);
             } else if (pMsg->message == WM_TOUCH) {
                 pCefUIEventWin_->OnTouchEvent(pMsg->message, pMsg->wParam, pMsg->lParam);
             } else if (pMsg->message == WM_SETFOCUS || pMsg->message == WM_KILLFOCUS) {
@@ -238,12 +246,6 @@ bool QCefViewImplement::nativeEvent(const QByteArray &eventType, void *message, 
 #error "Unknown compiler"
 #endif
     return false;
-}
-
-void QCefViewImplement::resizeEvent(QResizeEvent *event) {
-    qInfo() << "resizeEvent:" << pCefView_->rect();
-    pQCefViewHandler_->setViewRect(pCefView_->rect());
-    pCefUIEventWin_->OnSize(0, 0, 0);
 }
 
 CefRefPtr<CefBrowserHost> QCefViewImplement::getCefBrowserHost() {

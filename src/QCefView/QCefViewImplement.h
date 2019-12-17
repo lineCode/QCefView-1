@@ -36,7 +36,6 @@ public:
 
     QCefView *getCefView();
     bool nativeEvent(const QByteArray &eventType, void *message, long *result);
-    void resizeEvent(QResizeEvent *event);
     void paintEvent(QPaintEvent *event);
     float deviceScaleFactor();
 
