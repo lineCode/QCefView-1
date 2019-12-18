@@ -4,6 +4,7 @@
 #include <include/cef_command_line.h>
 #include <include/wrapper/cef_helpers.h>
 #include "CefViewSchemeHandler.h"
+#include "CefGlobalSetting.h"
 
 CefViewBrowserApp::CefViewBrowserApp() {
 }
@@ -12,26 +13,22 @@ CefViewBrowserApp::~CefViewBrowserApp() {
 }
 
 void CefViewBrowserApp::OnBeforeCommandLineProcessing(const CefString &process_type, CefRefPtr<CefCommandLine> command_line) {
-    command_line->AppendSwitch("disable-spell-checking");
-    command_line->AppendSwitch("disable-extensions");
-    command_line->AppendSwitch("disable-pdf-extension");
-    command_line->AppendSwitch("enable-direct-write");
-    command_line->AppendSwitch("allow-file-access-from-files");
-    command_line->AppendSwitch("no-proxy-server");
-    command_line->AppendSwitch("in-process-gpu");
-    command_line->AppendSwitch("disable-direct-composition");
-    command_line->AppendSwitchWithValue("disable-features", "NetworkService");
-    command_line->AppendSwitchWithValue("renderer-process-limit", "1");
-
-
-    //command_line->AppendSwitch("no-proxy-server");
-    //command_line->AppendSwitch("disable-extensions");
+    // Chromium has removed --disable-surfaces as per https://codereview.chromium.org/1603133003 so the workaround specified here is no longer applicable
     //command_line->AppendSwitch("disable-surfaces");
-    //command_line->AppendSwitch("disable-gpu-shader-disk-cache");
 
-    //// D3D11模式不能禁用GPU加速，2623版本不会使用D3D11模式
-    //command_line->AppendSwitch("disable-gpu");
-    //command_line->AppendSwitch("disable-gpu-compositing");
+
+    command_line->AppendSwitch("no-proxy-server");
+    command_line->AppendSwitch("disable-extensions");
+    command_line->AppendSwitch("allow-file-access-from-files");
+    command_line->AppendSwitchWithValue("disable-features", "NetworkService");
+
+    if (CefGlobalSetting::enable_gpu) {
+        //command_line->AppendSwitch("in-process-gpu");
+    } else {
+        // D3D11模式不能禁用GPU加速，2623版本不会使用D3D11模式
+        //command_line->AppendSwitch("disable-gpu");
+        //command_line->AppendSwitch("disable-gpu-compositing");
+    }
 }
 
 void CefViewBrowserApp::OnRegisterCustomSchemes(CefRawPtr<CefSchemeRegistrar> registrar) {

@@ -29,27 +29,30 @@ cef_color_t CefGlobalSetting::background_color;
 
 CefString CefGlobalSetting::accept_language_list;
 
+bool CefGlobalSetting::enable_gpu;
+
 void CefGlobalSetting::initializeInstance() {
-  static CefGlobalSetting s_instance;
+    static CefGlobalSetting s_instance;
 }
 
-CefGlobalSetting::CefGlobalSetting()
-{
-  QDir ExeDir = QCoreApplication::applicationDirPath();
+CefGlobalSetting::CefGlobalSetting() {
+    QDir ExeDir = QCoreApplication::applicationDirPath();
 
-  QString strExePath = ExeDir.filePath(RENDER_PROCESS_NAME);
-  browser_sub_process_path.FromString(QDir::toNativeSeparators(strExePath).toStdString());
+    QString strExePath = ExeDir.filePath(RENDER_PROCESS_NAME);
+    browser_sub_process_path.FromString(QDir::toNativeSeparators(strExePath).toStdString());
 
-  QString strResPath = ExeDir.filePath(RESOURCE_DIRECTORY_NAME);
-  resource_directory_path.FromString(QDir::toNativeSeparators(strResPath).toStdString());
+    QString strResPath = ExeDir.filePath(RESOURCE_DIRECTORY_NAME);
+    resource_directory_path.FromString(QDir::toNativeSeparators(strResPath).toStdString());
 
-  QDir ResPath(strResPath);
-  locales_directory_path.FromString(QDir::toNativeSeparators(ResPath.filePath(LOCALES_DIRECTORY_NAME)).toStdString());
+    QDir ResPath(strResPath);
+    locales_directory_path.FromString(QDir::toNativeSeparators(ResPath.filePath(LOCALES_DIRECTORY_NAME)).toStdString());
 
-  user_agent.FromString(QCEF_USER_AGENT);
+    user_agent.FromString(QCEF_USER_AGENT);
 
-  accept_language_list.FromWString(L"zh-CN,en-US,en");
-  locale.FromWString(L"zh-CN");
+    accept_language_list.FromWString(L"zh-CN,en-US,en");
+    locale.FromWString(L"zh-CN");
+
+    enable_gpu = false;
 }
 
 CefGlobalSetting::~CefGlobalSetting() {

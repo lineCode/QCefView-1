@@ -38,7 +38,10 @@ public:
     bool nativeEvent(const QByteArray &eventType, void *message, long *result);
     void paintEvent(QPaintEvent *event);
     float deviceScaleFactor();
+    void setFPS(int fps);
+    int fps() const;
 
+    void updateView();
 protected:
     bool sendEventNotifyMessage(int frameId, const QString &name, const QCefEvent &event);
     CefRefPtr<CefBrowserHost> getCefBrowserHost();
@@ -54,4 +57,6 @@ private:
     std::atomic<float> deviceScaleFactor_;
     HWND hwnd_;
     bool browserCreated_;
+
+    int fps_;
 };

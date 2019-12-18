@@ -3,14 +3,15 @@
 #include "QCefProtocol.h"
 #include <QDebug>
 #include <QApplication>
+#include <QPainter>
 #include "DpiHelper.h"
 
 QCefViewImplement::QCefViewImplement(QCefView *pCefView)
     : pCefView_(pCefView)
     , hwnd_(nullptr)
     , browserCreated_(false)
-    , pQCefViewHandler_(nullptr) {
-
+    , pQCefViewHandler_(nullptr)
+    , fps_(60) {
     deviceScaleFactor_ = getDpiScaleFactor();
 }
 
@@ -34,11 +35,11 @@ void QCefViewImplement::createBrowser() {
 
     CefBrowserSettings browserSettings;
     browserSettings.plugins = STATE_DISABLED; // disable all plugins
+    browserSettings.windowless_frame_rate = fps_;
 
     CefManager::getInstance().initializeCef();
 
     pQCefViewHandler_ = new CefViewBrowserHandler(this);
-    pQCefViewHandler_->setViewRect(pCefView_->rect());
 
     if (!CefBrowserHost::CreateBrowser(window_info,
         pQCefViewHandler_,
@@ -211,14 +212,6 @@ bool QCefViewImplement::nativeEvent(const QByteArray &eventType, void *message, 
                     pCefUIEventWin_->OnMouseEvent(pMsg->message, pMsg->wParam, pMsg->lParam);
                 }
             } else if (pMsg->message == WM_SIZE) {
-                RECT rc;
-                GetClientRect(hwnd_, &rc);
-                QRect rc2 = pCefView_->rect();
-
-                qInfo() << "GetClientRect: " << rc.right - rc.left << ", " << rc.bottom - rc.top << ", rect: " << rc2.width() << ", " << rc2.height();
-
-                pQCefViewHandler_->setViewRect(rc2);
-                
                 pCefUIEventWin_->OnSize(pMsg->message, pMsg->wParam, pMsg->lParam);
             } else if (pMsg->message == WM_TOUCH) {
                 pCefUIEventWin_->OnTouchEvent(pMsg->message, pMsg->wParam, pMsg->lParam);
@@ -264,10 +257,32 @@ QCefView *QCefViewImplement::getCefView() {
 }
 
 void QCefViewImplement::paintEvent(QPaintEvent *event) {
-    if (pQCefViewHandler_)
-        pQCefViewHandler_->widgetPaintEvent(event);
+    if (!pQCefViewHandler_)
+        return;
+    DrawImageParam* pDrawImageParam = pQCefViewHandler_->lockImage();
+    if (pDrawImageParam) {
+        QImage image(pDrawImageParam->imageArray.get(), pDrawImageParam->imageWidth, pDrawImageParam->imageHeight, QImage::Format_ARGB32);
+        //static int i = 0;
+        //image.save(QString("D:\\test_img\\%1.bmp").arg(i++));
+        QPainter paint(pCefView_);
+        paint.drawImage(pCefView_->rect(), image);
+    }
+    pQCefViewHandler_->releaseImage();
 }
 
 float QCefViewImplement::deviceScaleFactor() {
     return deviceScaleFactor_.load();
+}
+
+void QCefViewImplement::setFPS(int fps) {
+    fps_ = fps;
+}
+
+int QCefViewImplement::fps() const {
+    return fps_;
+}
+
+void QCefViewImplement::updateView() {
+    if (pCefView_)
+        pCefView_->update();
 }

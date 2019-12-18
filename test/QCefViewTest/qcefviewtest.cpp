@@ -1,6 +1,7 @@
 #include "qcefviewtest.h"
 #include <QDebug>
 #include "TransparentCefWnd.h"
+#include "QCefSetting.h"
 
 QCefViewTest::QCefViewTest(QWidget *parent)
     : QMainWindow(parent) {
@@ -71,7 +72,8 @@ QCefViewTest::QCefViewTest(QWidget *parent)
             ", error: " << query.error();
     }, Qt::QueuedConnection);
 
-
+    QCefSetting::setEnableGPU(false);
+    ui.widgetCef->setFPS(30);
     ui.widgetCef->navigateToUrl(QCoreApplication::applicationDirPath() + "/QCefViewTestPage.html");
 }
 

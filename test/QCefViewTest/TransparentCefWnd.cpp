@@ -16,6 +16,7 @@ TransparentCefWnd::TransparentCefWnd(QWidget *parent)
     setMouseTracking(true);
 
     ui.widgetCef->navigateToUrl(QCoreApplication::applicationDirPath() + "/tree.html");
+    qInfo() << ui.widgetCef->size();
 }
 
 TransparentCefWnd::~TransparentCefWnd() {

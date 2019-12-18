@@ -5,6 +5,7 @@
 #include <memory>
 #include <QtCore/qglobal.h>
 #include <QWidget>
+#include <QOpenGLWidget>
 #include <QVariantList>
 #include <QAbstractNativeEventFilter>
 #include "QCefQuery.h"
@@ -53,6 +54,9 @@ class QCEFVIEW_EXPORT QCefView :
     bool broadcastEvent(const QString &name, const QCefEvent &event);
 
     bool responseQCefQuery(const QCefQuery &query);
+
+    void setFPS(int fps);
+    int fps() const;
   protected:
     bool nativeEvent(const QByteArray& eventType, void* message, long* result) override;
   signals:

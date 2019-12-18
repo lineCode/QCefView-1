@@ -170,3 +170,12 @@ QCefSetting::acceptLanguageList()
   CefGlobalSetting::initializeInstance();
   return QString::fromStdString(CefGlobalSetting::accept_language_list.ToString());
 }
+
+const void QCefSetting::setEnableGPU(bool b) {
+    CefGlobalSetting::initializeInstance();
+    CefGlobalSetting::enable_gpu = b;
+}
+
+const bool QCefSetting::enableGPU() {
+    return CefGlobalSetting::enable_gpu;
+}

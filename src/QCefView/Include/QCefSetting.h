@@ -7,12 +7,12 @@
 #include <QMetaType>
 
 #ifdef QCEFVIEW_LIB
-    #define QCEFVIEW_EXPORT Q_DECL_EXPORT
+#define QCEFVIEW_EXPORT Q_DECL_EXPORT
 #else
-    #define QCEFVIEW_EXPORT Q_DECL_IMPORT
-    #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
-        #pragma comment(lib, "QCefView.lib")
-    #endif
+#define QCEFVIEW_EXPORT Q_DECL_IMPORT
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+#pragma comment(lib, "QCefView.lib")
+#endif
 #endif
 
 namespace QCefSetting {
@@ -20,145 +20,157 @@ namespace QCefSetting {
     ///
     /// </summary>
     void QCEFVIEW_EXPORT
-    setBrowserSubProcessPath(const QString &path);
+        setBrowserSubProcessPath(const QString &path);
 
     /// <summary>
     ///
     /// </summary>
     const QCEFVIEW_EXPORT QString
-    browserSubProcessPath();
+        browserSubProcessPath();
 
     /// <summary>
     ///
     /// </summary>
     void QCEFVIEW_EXPORT
-    setResourceDirectoryPath(const QString &path);
+        setResourceDirectoryPath(const QString &path);
 
     /// <summary>
     ///
     /// </summary>
     const QCEFVIEW_EXPORT QString
-    resourceDirectoryPath();
+        resourceDirectoryPath();
 
     /// <summary>
     ///
     /// </summary>
     void QCEFVIEW_EXPORT
-    setLocalesDirectoryPath(const QString &path);
+        setLocalesDirectoryPath(const QString &path);
 
     /// <summary>
     ///
     /// </summary>
     const QCEFVIEW_EXPORT QString
-    localesDirectoryPath();
+        localesDirectoryPath();
 
     /// <summary>
     ///
     /// </summary>
     void QCEFVIEW_EXPORT
-    setUserAgent(const QString &agent);
+        setUserAgent(const QString &agent);
 
     /// <summary>
     ///
     /// </summary>
     const QCEFVIEW_EXPORT QString
-    userAgent();
+        userAgent();
 
     /// <summary>
     ///
     /// </summary>
     void QCEFVIEW_EXPORT
-    setCachePath(const QString &path);
+        setCachePath(const QString &path);
 
     /// <summary>
     ///
     /// </summary>
     const QCEFVIEW_EXPORT QString
-    cachePath();
+        cachePath();
 
     /// <summary>
     ///
     /// </summary>
     void QCEFVIEW_EXPORT
-    setUserDataPath(const QString &path);
+        setUserDataPath(const QString &path);
 
     /// <summary>
     ///
     /// </summary>
     const QCEFVIEW_EXPORT QString
-    userDataPath();
+        userDataPath();
 
     /// <summary>
     ///
     /// </summary>
     void QCEFVIEW_EXPORT
-    setPersistSessionCookies(bool enabled);
+        setPersistSessionCookies(bool enabled);
 
     /// <summary>
     ///
     /// </summary>
     const QCEFVIEW_EXPORT bool
-    persistSessionCookies();
+        persistSessionCookies();
 
     /// <summary>
     ///
     /// </summary>
     void QCEFVIEW_EXPORT
-    setPersistUserPreferences(bool enabled);
+        setPersistUserPreferences(bool enabled);
 
     /// <summary>
     ///
     /// </summary>
     const QCEFVIEW_EXPORT bool
-    persistUserPreferences();
+        persistUserPreferences();
 
     /// <summary>
     ///
     /// </summary>
     void QCEFVIEW_EXPORT
-    setLocale(const QString &locale);
+        setLocale(const QString &locale);
 
     /// <summary>
     ///
     /// </summary>
     const QCEFVIEW_EXPORT QString
-    locale();
+        locale();
 
     /// <summary>
     ///
     /// </summary>
     void QCEFVIEW_EXPORT
-    setRemoteDebuggingPort(int port);
+        setRemoteDebuggingPort(int port);
 
     /// <summary>
     ///
     /// </summary>
     const QCEFVIEW_EXPORT int
-    remoteDebuggingPort();
+        remoteDebuggingPort();
 
     /// <summary>
     ///
     /// </summary>
     void QCEFVIEW_EXPORT
-    setBackgroundColor(const QColor &color);
+        setBackgroundColor(const QColor &color);
 
     /// <summary>
     ///
     /// </summary>
     const QCEFVIEW_EXPORT QColor
-    backgroundColor();
+        backgroundColor();
 
     /// <summary>
     ///
     /// </summary>
     void QCEFVIEW_EXPORT
-    setAcceptLanguageList(const QString &languages);
+        setAcceptLanguageList(const QString &languages);
 
     /// <summary>
     ///
     /// </summary>
     const QCEFVIEW_EXPORT QString
-    acceptLanguageList();
+        acceptLanguageList();
+
+    /// <summary>
+    ///
+    /// </summary>
+    const QCEFVIEW_EXPORT void
+        setEnableGPU(bool b);
+
+    /// <summary>
+    ///
+    /// </summary>
+    const QCEFVIEW_EXPORT bool
+        enableGPU();
 };
 
 #endif

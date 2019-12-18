@@ -18,6 +18,17 @@
 class QCefViewImplement;
 class QCefView;
 
+struct DrawImageParam {
+    int imageWidth;
+    int imageHeight;
+    std::unique_ptr<uint8_t[]> imageArray;
+
+    DrawImageParam() {
+        imageWidth = 0;
+        imageHeight = 0;
+    }
+};
+
 class CefViewBrowserHandler
     : public CefClient
     , public CefContextMenuHandler
@@ -278,8 +289,8 @@ public:
         CefProcessId source_process,
         CefRefPtr<CefProcessMessage> message);
 
-    void widgetPaintEvent(QPaintEvent *event);
-    void setViewRect(QRect rect);
+    DrawImageParam* lockImage();
+    void releaseImage();
 private:
     QCefView *GetCefView();
 private:
@@ -297,12 +308,8 @@ private:
     CefRefPtr<CefMessageRouterBrowserSide> pMessageRouter_;
     CefRefPtr<CefQueryHandler> pCefqueryHandler_;
 
-    std::atomic<QRect> cefViewRect_;
-
     std::mutex imageMtx_;
-    int imageWidth_;
-    int imageHeight_;
-    std::unique_ptr<uint8_t[]> imageArray_;
+    DrawImageParam drawImageParam_;
 
     // Include the default reference counting implementation.
     IMPLEMENT_REFCOUNTING(CefViewBrowserHandler);

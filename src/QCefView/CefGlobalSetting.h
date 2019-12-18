@@ -20,6 +20,7 @@ class CefGlobalSetting {
     static int persist_user_preferences;
     static int remote_debugging_port;
     static cef_color_t background_color;
+    static bool enable_gpu;
   protected:
     CefGlobalSetting();
     ~CefGlobalSetting();

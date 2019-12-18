@@ -101,6 +101,17 @@ bool QCefView::responseQCefQuery(const QCefQuery &query) {
     return false;
 }
 
+void QCefView::setFPS(int fps) {
+    if (pImpl_)
+        pImpl_->setFPS(fps);
+}
+
+int QCefView::fps() const {
+    if (pImpl_)
+        return pImpl_->fps();
+    return 0;
+}
+
 bool QCefView::nativeEvent(const QByteArray &eventType, void *message, long *result) {
     if(pImpl_)
         return pImpl_->nativeEvent(eventType, message, result);
