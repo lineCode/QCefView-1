@@ -1,6 +1,8 @@
 This repository was originally cloned from [tishion/QCefView](https://github.com/tishion/QCefView). 
 
-Since [tishion/QCefView](https://github.com/tishion/QCefView) don't support OSR (offscreen rendering), so I create a repository with the same name to implement these features.
+Since [tishion/QCefView](https://github.com/tishion/QCefView) don't support OSR (offscreen rendering), so I create a repository with the same name to implement these features. 
+
+**[tishion/QCefView](https://github.com/tishion/QCefView) and [winsoft666/QCefView](https://github.com/winsoft666/QCefView) are vastly different in code structure.**
 
 ---
 
